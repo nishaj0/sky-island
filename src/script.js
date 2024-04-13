@@ -1,5 +1,4 @@
 import * as THREE from "three";
-
 /**
  * Base
  */
@@ -9,6 +8,13 @@ const canvas = document.querySelector("canvas.webgl");
 
 // scene
 const scene = new THREE.Scene();
+
+const testBox = new THREE.Mesh(
+     new THREE.BoxGeometry(4, 3, 4),
+     new THREE.MeshBasicMaterial({ color: "skyblue" })
+);
+
+scene.add(testBox);
 
 /**
  * Camera
@@ -41,14 +47,14 @@ renderer.render(scene, camera);
 
 // handle window resize
 window.addEventListener("resize", () => {
-   // update sizes
-   sizes.width = window.innerWidth;
-   sizes.height = window.innerHeight;
+     // update sizes
+     sizes.width = window.innerWidth;
+     sizes.height = window.innerHeight;
 
-   // update camera
-   camera.aspect = sizes.width / sizes.height;
-   camera.updateProjectionMatrix();
+     // update camera
+     camera.aspect = sizes.width / sizes.height;
+     camera.updateProjectionMatrix();
 
-   // update renderer
-   renderer.setSize(sizes.width, sizes.height);
+     // update renderer
+     renderer.setSize(sizes.width, sizes.height);
 });
