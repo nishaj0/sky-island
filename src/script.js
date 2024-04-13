@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { threshold } from "three/examples/jsm/nodes/Nodes.js";
 /**
  * Base
  */
@@ -35,6 +37,10 @@ camera.position.y = 2;
 camera.position.z = 5;
 scene.add(camera);
 
+// controls
+const controls = new OrbitControls(camera, canvas);
+controls.enableDamping = true;
+
 /**
  * Renderer
  */
@@ -58,3 +64,18 @@ window.addEventListener("resize", () => {
      // update renderer
      renderer.setSize(sizes.width, sizes.height);
 });
+
+const clock = new THREE.Clock();
+const tick = () => {
+     const elapsedTime = clock.getElapsedTime();
+     
+     // update controls
+     controls.update();
+
+     // renderer
+     renderer.render(scene, camera);
+
+     // Call tick again on the next frame
+     window.requestAnimationFrame(tick);
+};
+tick();
