@@ -33,6 +33,15 @@ floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
 scene.add(floor);
 
+const floorBottom = new THREE.Mesh(
+     new THREE.ConeGeometry(5, 10, 20),
+     new THREE.MeshBasicMaterial({ color: "#bd9762" })
+);
+
+floorBottom.position.y = -5.001;;
+floorBottom.rotation.x = Math.PI 
+scene.add(floorBottom);
+
 /**
  * House
  */
@@ -172,6 +181,37 @@ tree5Leaf.position.y = 1.1 + 1.2; // half of leaf height + wood height
 Tree5.add(tree5Leaf);
 
 /**
+ * Stone
+ */
+
+const Stones = new THREE.Group();
+Stones.position.set(-3.4, 0, 0);
+Stones.rotation.y = 1.5;
+// gui.add(Stones.position, "x").min(-5).max(5).step(0.1).name("stones x");
+// gui.add(Stones.position, "z").min(-5).max(5).step(0.1).name("stones z");
+// gui.add(Stones.rotation, "y").min(-5).max(5).step(0.01).name("stones r y");
+
+scene.add(Stones);
+
+const stoneMaterial = new THREE.MeshStandardMaterial({
+     color: "gray",
+});
+
+const stone1 = new THREE.Mesh(
+     new THREE.TetrahedronGeometry(0.3, 2),
+     stoneMaterial
+);
+stone1.position.y = 0.25;
+
+const stone2 = new THREE.Mesh(
+     new THREE.TetrahedronGeometry(0.42, 2),
+     stoneMaterial
+);
+stone2.position.x = 0.7;
+stone2.position.y = 0.25;
+Stones.add(stone1, stone2);
+
+/**
  * Lights
  */
 
@@ -204,9 +244,13 @@ const camera = new THREE.PerspectiveCamera(
      0.1,
      100
 );
-camera.position.x = 3;
+camera.position.x = 6;
 camera.position.y = 3;
-camera.position.z = 5;
+camera.position.z = -4;
+// gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
+// gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
+// gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
+
 // camera.lookAt(door)
 scene.add(camera);
 
