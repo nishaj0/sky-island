@@ -36,10 +36,10 @@ const floorRoughnessTexture = textureLoader.load(
      "../static/textures/stone_path_006/Stone_Path_006_roughness.jpg"
 );
 
-floorColorTexture.repeat.set(8, 8);
-floorAOTexture.repeat.set(8, 8);
-floorNormalTexture.repeat.set(8, 8);
-floorRoughnessTexture.repeat.set(8, 8);
+// floorColorTexture.repeat.set(2, 2);
+// floorAOTexture.repeat.set(2, 2);
+// floorNormalTexture.repeat.set(2, 2);
+// floorRoughnessTexture.repeat.set(2, 2);
 
 floorColorTexture.wrapS = THREE.RepeatWrapping;
 floorAOTexture.wrapS = THREE.RepeatWrapping;
@@ -312,6 +312,39 @@ stone2.position.x = 0.7;
 stone2.position.y = 0.25;
 Stones.add(stone1, stone2);
 
+// cloud
+const clouds = new THREE.Group(); // store all clouds
+scene.add(clouds);
+
+const cloudMaterial = new THREE.MeshStandardMaterial({ color: "gray" });
+
+for (let i = 0; i < 4; i++) {
+     const cloud = new THREE.Group(); // stores one cloud's spheres]
+
+     const angle = Math.random() * Math.PI * 2; // random position in circular path
+     const radius = 3 + Math.random() * 2; // 3 to 5
+     const x = Math.sin(angle) * radius;
+     const z = Math.cos(angle) * radius;
+     const y = 4 + Math.random() * 0.5;
+
+     cloud.position.set(x, y, z);
+     clouds.add(cloud);
+
+     for (let j = 0; j < 5; j++) {
+          const sphereX = (Math.random() - 0.5) * 0.8;
+          const sphereY = (Math.random() - 0.5) * 0.2;
+          const sphereR = [0.2, 0.25, 0.4, 0.3, 0.25];
+
+          const sphere = new THREE.Mesh(
+               new THREE.SphereGeometry(sphereR[j], 10),
+               cloudMaterial
+          );
+          sphere.position.x = sphereX;
+          sphere.position.y = sphereY;
+          cloud.add(sphere);
+     }
+}
+
 /**
  * Lights
  */
@@ -345,12 +378,12 @@ const camera = new THREE.PerspectiveCamera(
      0.1,
      100
 );
-camera.position.x = 6;
-camera.position.y = 3;
+camera.position.x = 7;
+camera.position.y = 4;
 camera.position.z = -4;
-// gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
-// gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
-// gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
+gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
+gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
+gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
 
 // camera.lookAt(door)
 scene.add(camera);
