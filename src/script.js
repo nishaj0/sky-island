@@ -230,16 +230,16 @@ scene.add(Tree1, Tree2, Tree3, Tree4, Tree5);
 
 // wood
 const treeWoodMaterial = new THREE.MeshStandardMaterial({ color: "brown" });
-const bigTreeWoodGeo = new THREE.CylinderGeometry(0.22, 0.22, 1.2, 5);
-const midTreeWoodGeo = new THREE.CylinderGeometry(0.2, 0.2, 1, 5);
+const bigTreeWoodGeo = new THREE.CylinderGeometry(0.22, 0.22, 1.1, 5);
+const midTreeWoodGeo = new THREE.CylinderGeometry(0.2, 0.2, .9, 5);
 const smallTreeWoodGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.8, 5);
 
 const tree1Wood = new THREE.Mesh(midTreeWoodGeo, treeWoodMaterial);
-tree1Wood.position.y = 0.5;
+tree1Wood.position.y = 0.45;
 Tree1.add(tree1Wood);
 
 const tree2Wood = new THREE.Mesh(midTreeWoodGeo, treeWoodMaterial);
-tree2Wood.position.y = 0.5;
+tree2Wood.position.y = 0.45;
 Tree2.add(tree2Wood);
 
 const tree3Wood = new THREE.Mesh(smallTreeWoodGeo, treeWoodMaterial);
@@ -247,26 +247,26 @@ tree3Wood.position.y = 0.4;
 Tree3.add(tree3Wood);
 
 const tree4Wood = new THREE.Mesh(bigTreeWoodGeo, treeWoodMaterial);
-tree4Wood.position.y = 0.6;
+tree4Wood.position.y = 0.55;
 Tree4.add(tree4Wood);
 
 const tree5Wood = new THREE.Mesh(bigTreeWoodGeo, treeWoodMaterial);
-tree5Wood.position.y = 0.6;
+tree5Wood.position.y = 0.55;
 Tree5.add(tree5Wood);
 
 // leaf
 
 const treeLeafMaterial = new THREE.MeshBasicMaterial({ color: "#32a862" });
-const bigTreeLeafGeo = new THREE.ConeGeometry(1, 2.2, 5);
-const midTreeLeafGeo = new THREE.ConeGeometry(0.8, 2, 5);
-const smallTreeLeafGeo = new THREE.ConeGeometry(0.6, 1.8, 5);
+const bigTreeLeafGeo = new THREE.ConeGeometry(1, 2.2, 10);
+const midTreeLeafGeo = new THREE.ConeGeometry(0.8, 2, 10);
+const smallTreeLeafGeo = new THREE.ConeGeometry(0.6, 1.8, 10);
 
 const tree1Leaf = new THREE.Mesh(midTreeLeafGeo, treeLeafMaterial);
-tree1Leaf.position.y = 1 + 1; // half of leaf height + wood height
+tree1Leaf.position.y = 1 + .9; // half of leaf height + wood height
 Tree1.add(tree1Leaf);
 
 const tree2Leaf = new THREE.Mesh(midTreeLeafGeo, treeLeafMaterial);
-tree2Leaf.position.y = 1 + 1; // half of leaf height + wood height
+tree2Leaf.position.y = 1 + .9; // half of leaf height + wood height
 Tree2.add(tree2Leaf);
 
 const tree3Leaf = new THREE.Mesh(smallTreeLeafGeo, treeLeafMaterial);
@@ -274,11 +274,11 @@ tree3Leaf.position.y = 0.9 + 0.8; // half of leaf height + wood height
 Tree3.add(tree3Leaf);
 
 const tree4Leaf = new THREE.Mesh(bigTreeLeafGeo, treeLeafMaterial);
-tree4Leaf.position.y = 1.1 + 1.2; // half of leaf height + wood height
+tree4Leaf.position.y = 1.1 + 1.1; // half of leaf height + wood height
 Tree4.add(tree4Leaf);
 
 const tree5Leaf = new THREE.Mesh(bigTreeLeafGeo, treeLeafMaterial);
-tree5Leaf.position.y = 1.1 + 1.2; // half of leaf height + wood height
+tree5Leaf.position.y = 1.1 + 1.1; // half of leaf height + wood height
 Tree5.add(tree5Leaf);
 
 /**
