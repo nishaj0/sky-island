@@ -39,17 +39,17 @@ const params = {
 const textureLoader = new THREE.TextureLoader();
 
 const floorColorTexture = textureLoader.load(
-     "../static/textures/stone_path_006/Stone_Path_006_basecolor.jpg"
+     "static/textures/stone_path_006/Stone_Path_006_basecolor.jpg"
 );
 floorColorTexture.colorSpace = THREE.SRGBColorSpace;
 const floorAOTexture = textureLoader.load(
-     "../static/textures/stone_path_006/Stone_Path_006_ambientOcclusion.jpg"
+     "static/textures/stone_path_006/Stone_Path_006_ambientOcclusion.jpg"
 );
 const floorNormalTexture = textureLoader.load(
-     "../static/textures/stone_path_006/Stone_Path_006_normal.jpg"
+     "static/textures/stone_path_006/Stone_Path_006_normal.jpg"
 );
 const floorRoughnessTexture = textureLoader.load(
-     "../static/textures/stone_path_006/Stone_Path_006_roughness.jpg"
+     "static/textures/stone_path_006/Stone_Path_006_roughness.jpg"
 );
 
 // floorColorTexture.repeat.set(2, 2);
@@ -68,42 +68,38 @@ floorNormalTexture.wrapT = THREE.RepeatWrapping;
 floorRoughnessTexture.wrapT = THREE.RepeatWrapping;
 
 const brickColorTexture = textureLoader.load(
-     "../static/textures/brick_wall_017/Brick_Wall_017_basecolor.jpg"
+     "static/textures/brick_wall_017/Brick_Wall_017_basecolor.jpg"
 );
 brickColorTexture.colorSpace = THREE.SRGBColorSpace;
 const brickAOTexture = textureLoader.load(
-     "../static/textures/brick_wall_017/Brick_Wall_017_ambientOcclusion.jpg"
+     "static/textures/brick_wall_017/Brick_Wall_017_ambientOcclusion.jpg"
 );
 const brickHeightTexture = textureLoader.load(
-     "../static/textures/brick_wall_017/Brick_Wall_017_height.jpg"
+     "static/textures/brick_wall_017/Brick_Wall_017_height.jpg"
 );
 const brickNormalTexture = textureLoader.load(
-     "../static/textures/brick_wall_017/Brick_Wall_017_normal.jpg"
+     "static/textures/brick_wall_017/Brick_Wall_017_normal.jpg"
 );
 const brickRoughnessTexture = textureLoader.load(
-     "../static/textures/brick_wall_017/Brick_Wall_017_roughness.jpg"
+     "static/textures/brick_wall_017/Brick_Wall_017_roughness.jpg"
 );
 
-const doorColorTexture = textureLoader.load(
-     "../static//textures/door/color.jpg"
-);
-const doorAlphaTexture = textureLoader.load(
-     "../static//textures/door/alpha.jpg"
-);
+const doorColorTexture = textureLoader.load("static//textures/door/color.jpg");
+const doorAlphaTexture = textureLoader.load("static//textures/door/alpha.jpg");
 const doorAOTexture = textureLoader.load(
-     "../static//textures/door/ambientOcclusion.jpg"
+     "static//textures/door/ambientOcclusion.jpg"
 );
 const doorHeightTexture = textureLoader.load(
-     "../static//textures/door/height.jpg"
+     "static//textures/door/height.jpg"
 );
 const doorNormalTexture = textureLoader.load(
-     "../static//textures/door/normal.jpg"
+     "static//textures/door/normal.jpg"
 );
 const doorMetalnessTexture = textureLoader.load(
-     "../static//textures/door/metalness.jpg"
+     "static//textures/door/metalness.jpg"
 );
 const doorRoughnessTexture = textureLoader.load(
-     "../static//textures/door/roughness.jpg"
+     "static//textures/door/roughness.jpg"
 );
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
 
