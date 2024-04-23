@@ -114,14 +114,15 @@ floor.rotation.x = -Math.PI * 0.5;
 floor.position.y = 0;
 scene.add(floor);
 
-const floorBottom = new THREE.Mesh(
-     new THREE.ConeGeometry(5, 10, 20),
-     new THREE.MeshBasicMaterial({ color: "#bd9762" })
-);
+// floor bottom
+// const floorBottom = new THREE.Mesh(
+//      new THREE.ConeGeometry(5, 10, 20),
+//      new THREE.MeshBasicMaterial({ color: "#bd9762" })
+// );
 
-floorBottom.position.y = -5.001;
-floorBottom.rotation.x = Math.PI;
-scene.add(floorBottom);
+// floorBottom.position.y = -5.001;
+// floorBottom.rotation.x = Math.PI;
+// scene.add(floorBottom);
 
 /**
  * House
