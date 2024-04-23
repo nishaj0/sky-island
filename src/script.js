@@ -89,12 +89,8 @@ const doorAlphaTexture = textureLoader.load("static/textures/door/alpha.jpg");
 const doorAOTexture = textureLoader.load(
      "static/textures/door/ambientOcclusion.jpg"
 );
-const doorHeightTexture = textureLoader.load(
-     "static/textures/door/height.jpg"
-);
-const doorNormalTexture = textureLoader.load(
-     "static/textures/door/normal.jpg"
-);
+const doorHeightTexture = textureLoader.load("static/textures/door/height.jpg");
+const doorNormalTexture = textureLoader.load("static/textures/door/normal.jpg");
 const doorMetalnessTexture = textureLoader.load(
      "static/textures/door/metalness.jpg"
 );
@@ -272,6 +268,11 @@ const tree5Wood = new THREE.Mesh(bigTreeWoodGeo, treeWoodMaterial);
 tree5Wood.position.y = 0.55;
 Tree5.add(tree5Wood);
 
+// tree wood gui
+gui.addColor(params, "treeWoodColor").onChange(() => {
+     treeWoodMaterial.color.set(params.treeWoodColor);
+});
+
 // leaf
 
 const treeLeafMaterial = new THREE.MeshStandardMaterial({
@@ -300,6 +301,11 @@ Tree4.add(tree4Leaf);
 const tree5Leaf = new THREE.Mesh(bigTreeLeafGeo, treeLeafMaterial);
 tree5Leaf.position.y = 1.1 + 1.1; // half of leaf height + wood height
 Tree5.add(tree5Leaf);
+
+// tree leaf gui
+gui.addColor(params, "treeLeafColor").onChange(() => {
+     treeLeafMaterial.color.set(params.treeLeafColor);
+});
 
 /**
  * Stone
