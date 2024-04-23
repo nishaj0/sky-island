@@ -420,7 +420,7 @@ gui.add(sunlight, "intensity")
 // });
 
 // moon light
-const moonlightIntensity = 5;
+const moonlightIntensity = 10;
 const moonlight = new THREE.DirectionalLight(
      lightColorParams.moonlightColor,
      moonlightIntensity
