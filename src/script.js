@@ -451,9 +451,9 @@ const camera = new THREE.PerspectiveCamera(
      0.1,
      100
 );
-camera.position.x = 7;
-camera.position.y = 4;
-camera.position.z = -4;
+camera.position.x = 6;
+camera.position.y = 3;
+camera.position.z = -2;
 // gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
 // gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
 // gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
