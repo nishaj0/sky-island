@@ -474,11 +474,49 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
 const nightBgColor = "#45575c";
 const morningBgColor = "#c2f3ff";
 
 renderer.setClearColor(morningBgColor);
+
+/**
+ * Shadow
+ */
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+sunlight.castShadow = true;
+moonlight.castShadow = true;
+
+walls.castShadow = true;
+roof.castShadow = true;
+
+tree1Wood.castShadow = true;
+tree2Wood.castShadow = true;
+tree3Wood.castShadow = true;
+tree4Wood.castShadow = true;
+tree5Wood.castShadow = true;
+
+tree1Leaf.castShadow = true;
+tree2Leaf.castShadow = true;
+tree3Leaf.castShadow = true;
+tree4Leaf.castShadow = true;
+tree5Leaf.castShadow = true;
+
+stone1.castShadow = true;
+stone2.castShadow = true;
+
+floor.receiveShadow = true;
+
+sunlight.shadow.mapSize.width = 256;
+sunlight.shadow.mapSize.height = 256;
+// sunlight.shadow.camera.far = 7;
+
+moonlight.shadow.mapSize.width = 256;
+moonlight.shadow.mapSize.height = 256;
+// moonlight.shadow.camera.far = 7;
 
 // handle window resize
 window.addEventListener("resize", () => {
