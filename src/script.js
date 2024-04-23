@@ -158,14 +158,20 @@ walls.position.z = 0;
 house.add(walls);
 
 // roof
+const roofParams = {
+     color: "#5c4242",
+};
 const roof = new THREE.Mesh(
      new THREE.ConeGeometry(2, 2, 20),
-     new THREE.MeshStandardMaterial({ color: "#6b3b2e" })
+     new THREE.MeshStandardMaterial({ color: roofParams.color })
 );
 
 roof.position.x = 0;
 roof.position.y = 1 + 1.5; // half of roof height + walls height
 roof.position.z = 0;
+// gui.addColor(roofParams, "color").onChange(() => {
+//      roof.material.color.set(roofParams.color);
+// });
 
 house.add(roof);
 
