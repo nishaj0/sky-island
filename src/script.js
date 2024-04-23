@@ -475,6 +475,11 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
+const nightBgColor = "#45575c";
+const morningBgColor = "#c2f3ff";
+
+renderer.setClearColor(morningBgColor);
+
 // handle window resize
 window.addEventListener("resize", () => {
      // update sizes
@@ -519,6 +524,13 @@ const tick = () => {
 
      updateLightIntensity(sunlight, sunlightIntensity);
      updateLightIntensity(moonlight, moonlightIntensity);
+
+     // ? change background color based on sunlight
+     if (sunlight.position.y < 0) {
+          renderer.setClearColor(nightBgColor);
+     } else {
+          renderer.setClearColor(morningBgColor);
+     }
 
      // update controls
      controls.update();
