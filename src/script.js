@@ -345,6 +345,22 @@ for (let i = 0; i < 4; i++) {
      }
 }
 
+// sun
+const sun = new THREE.Mesh(
+     new THREE.SphereGeometry(0.5, 20),
+     new THREE.MeshBasicMaterial({ color: "yellow" })
+);
+sun.position.set(0, 8, 0);
+scene.add(sun);
+
+// moon
+const moon = new THREE.Mesh(
+     new THREE.SphereGeometry(0.5, 20),
+     new THREE.MeshBasicMaterial({ color: "#3da1ff" })
+);
+moon.position.set(0, -8, 0);
+scene.add(moon);
+
 /**
  * Lights
  */
@@ -478,11 +494,18 @@ const tick = () => {
 
      // update light
      const sunlightAngle = elapsedTime * 0.2;
-     sunlight.position.x = Math.sin(sunlightAngle) * 7;
-     sunlight.position.y = Math.cos(sunlightAngle) * 7;
+     const sunX = Math.sin(sunlightAngle) * 7;
+     const sunY = Math.cos(sunlightAngle) * 7;
 
-     moonlight.position.x = -Math.sin(sunlightAngle) * 7;
-     moonlight.position.y = -Math.cos(sunlightAngle) * 7;
+     sun.position.x = sunX;
+     sun.position.y = sunY;
+     sunlight.position.x = sunX;
+     sunlight.position.y = sunY;
+
+     moon.position.x = -sunX;
+     moon.position.y = -sunY;
+     moonlight.position.x = -sunX;
+     moonlight.position.y = -sunY;
 
      // ? change light intensity based on light position
      function updateLightIntensity(light, intensity) {
