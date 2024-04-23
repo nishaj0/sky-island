@@ -20,7 +20,7 @@ const scene = new THREE.Scene();
 // params
 const params = {
      roofColor: "#5c4242",
-     treeWoodColor: "#964B00",
+     treeWoodColor: "brown",
      treeLeafColor: "#32a862",
      stoneColor: "#3b3a39",
      cloudColor: "#808080",
@@ -84,22 +84,22 @@ const brickRoughnessTexture = textureLoader.load(
      "static/textures/brick_wall_017/Brick_Wall_017_roughness.jpg"
 );
 
-const doorColorTexture = textureLoader.load("static//textures/door/color.jpg");
-const doorAlphaTexture = textureLoader.load("static//textures/door/alpha.jpg");
+const doorColorTexture = textureLoader.load("static/textures/door/color.jpg");
+const doorAlphaTexture = textureLoader.load("static/textures/door/alpha.jpg");
 const doorAOTexture = textureLoader.load(
-     "static//textures/door/ambientOcclusion.jpg"
+     "static/textures/door/ambientOcclusion.jpg"
 );
 const doorHeightTexture = textureLoader.load(
-     "static//textures/door/height.jpg"
+     "static/textures/door/height.jpg"
 );
 const doorNormalTexture = textureLoader.load(
-     "static//textures/door/normal.jpg"
+     "static/textures/door/normal.jpg"
 );
 const doorMetalnessTexture = textureLoader.load(
-     "static//textures/door/metalness.jpg"
+     "static/textures/door/metalness.jpg"
 );
 const doorRoughnessTexture = textureLoader.load(
-     "static//textures/door/roughness.jpg"
+     "static/textures/door/roughness.jpg"
 );
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
 
