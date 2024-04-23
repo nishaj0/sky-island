@@ -17,6 +17,22 @@ const canvas = document.querySelector("canvas.webgl");
 // scene
 const scene = new THREE.Scene();
 
+// params
+const params = {
+     roofColor: "#5c4242",
+     treeWoodColor: "brown",
+     treeLeafColor: "#32a862",
+     stoneColor: "#3b3a39",
+     cloudColor: "gray",
+     sunColor: "yellow",
+     moonColor: "#3da1ff",
+     ambientLightColor: "white",
+     sunlightColor: 0xffecb3,
+     moonlightColor: 0x70a6e1,
+     nightBgColor: "#45575c",
+     morningBgColor: "#c2f3ff",
+};
+
 /**
  * Texture Loader
  */
@@ -158,20 +174,17 @@ walls.position.z = 0;
 house.add(walls);
 
 // roof
-const roofParams = {
-     color: "#5c4242",
-};
 const roof = new THREE.Mesh(
      new THREE.ConeGeometry(2, 2, 20),
-     new THREE.MeshStandardMaterial({ color: roofParams.color })
+     new THREE.MeshStandardMaterial({ color: params.roofColor })
 );
 
 roof.position.x = 0;
 roof.position.y = 1 + 1.5; // half of roof height + walls height
 roof.position.z = 0;
-// gui.addColor(roofParams, "color").onChange(() => {
-//      roof.material.color.set(roofParams.color);
-// });
+gui.addColor(params, "roofColor").onChange(() => {
+     roof.material.color.set(params.roofColor);
+});
 
 house.add(roof);
 
@@ -236,7 +249,9 @@ Tree5.position.set(-1, 0, -3);
 scene.add(Tree1, Tree2, Tree3, Tree4, Tree5);
 
 // wood
-const treeWoodMaterial = new THREE.MeshStandardMaterial({ color: "brown" });
+const treeWoodMaterial = new THREE.MeshStandardMaterial({
+     color: params.treeWoodColor,
+});
 const bigTreeWoodGeo = new THREE.CylinderGeometry(0.22, 0.22, 1.1, 5);
 const midTreeWoodGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.9, 5);
 const smallTreeWoodGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.8, 5);
@@ -263,7 +278,9 @@ Tree5.add(tree5Wood);
 
 // leaf
 
-const treeLeafMaterial = new THREE.MeshStandardMaterial({ color: "#32a862" });
+const treeLeafMaterial = new THREE.MeshStandardMaterial({
+     color: params.treeLeafColor,
+});
 const bigTreeLeafGeo = new THREE.ConeGeometry(1, 2.2, 10);
 const midTreeLeafGeo = new THREE.ConeGeometry(0.8, 2, 10);
 const smallTreeLeafGeo = new THREE.ConeGeometry(0.6, 1.8, 10);
@@ -302,7 +319,7 @@ Stones.rotation.y = 1.5;
 scene.add(Stones);
 
 const stoneMaterial = new THREE.MeshStandardMaterial({
-     color: "#3b3a39",
+     color: params.stoneColor,
 });
 
 const stone1 = new THREE.Mesh(
@@ -323,7 +340,9 @@ Stones.add(stone1, stone2);
 const clouds = new THREE.Group(); // store all clouds
 scene.add(clouds);
 
-const cloudMaterial = new THREE.MeshStandardMaterial({ color: "gray" });
+const cloudMaterial = new THREE.MeshStandardMaterial({
+     color: params.cloudColor,
+});
 
 for (let i = 0; i < 4; i++) {
      const cloud = new THREE.Group(); // stores one cloud's spheres]
@@ -355,7 +374,7 @@ for (let i = 0; i < 4; i++) {
 // sun
 const sun = new THREE.Mesh(
      new THREE.SphereGeometry(0.5, 20),
-     new THREE.MeshBasicMaterial({ color: "yellow" })
+     new THREE.MeshBasicMaterial({ color: params.sunColor })
 );
 sun.position.set(0, 8, 0);
 scene.add(sun);
@@ -363,7 +382,7 @@ scene.add(sun);
 // moon
 const moon = new THREE.Mesh(
      new THREE.SphereGeometry(0.5, 20),
-     new THREE.MeshBasicMaterial({ color: "#3da1ff" })
+     new THREE.MeshBasicMaterial({ color: params.moonColor })
 );
 moon.position.set(0, -8, 0);
 scene.add(moon);
@@ -372,20 +391,15 @@ scene.add(moon);
  * Lights
  */
 
-const lightColorParams = {
-     sunlightColor: 0xffecb3,
-     moonlightColor: 0x70a6e1,
-};
-
 // ambient light
-const ambientLight = new THREE.AmbientLight("white", 2);
+const ambientLight = new THREE.AmbientLight(params.ambientLightColor, 2);
 gui.add(ambientLight, "intensity").min(0).max(100).step(1).name("AL-intensity");
 scene.add(ambientLight);
 
 // sunlight
 const sunlightIntensity = 10;
 const sunlight = new THREE.DirectionalLight(
-     lightColorParams.sunlightColor,
+     params.sunlightColor,
      sunlightIntensity
 );
 sunlight.position.set(0, 8, 0);
@@ -422,14 +436,14 @@ gui.add(sunlight, "intensity")
 //      .step(0.001)
 //      .name("sunlight r z");
 
-// gui.addColor(lightColorParams, "sunlightColor").onChange(() => {
-//      sunlight.color.set(lightColorParams.sunlightColor);
+// gui.addColor(params, "sunlightColor").onChange(() => {
+//      sunlight.color.set(params.sunlightColor);
 // });
 
 // moon light
 const moonlightIntensity = 10;
 const moonlight = new THREE.DirectionalLight(
-     lightColorParams.moonlightColor,
+     params.moonlightColor,
      moonlightIntensity
 );
 moonlight.position.set(0, -8, 0);
@@ -439,8 +453,8 @@ scene.add(moonlight);
 // scene.add( moonlightHelper);
 
 // moonlight helpers
-// gui.addColor(lightColorParams, "moonlightColor").onChange(() => {
-//      moonlight.color.set(lightColorParams.moonlightColor);
+// gui.addColor(params, "moonlightColor").onChange(() => {
+//      moonlight.color.set(params.moonlightColor);
 // });
 
 /**
@@ -482,10 +496,7 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-const nightBgColor = "#45575c";
-const morningBgColor = "#c2f3ff";
-
-renderer.setClearColor(morningBgColor);
+renderer.setClearColor(params.morningBgColor);
 
 /**
  * Shadow
@@ -571,9 +582,9 @@ const tick = () => {
 
      // ? change background color based on sunlight
      if (sunlight.position.y < 0) {
-          renderer.setClearColor(nightBgColor);
+          renderer.setClearColor(params.nightBgColor);
      } else {
-          renderer.setClearColor(morningBgColor);
+          renderer.setClearColor(params.morningBgColor);
      }
 
      // update controls
