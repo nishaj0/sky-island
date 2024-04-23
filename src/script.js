@@ -351,6 +351,7 @@ for (let i = 0; i < 4; i++) {
 
 const lightColorParams = {
      sunlightColor: 0xffecb3,
+     moonlightColor: 0x70a6e1,
 };
 
 // ambient light
@@ -368,7 +369,8 @@ sunlight.position.set(0, 8, 0);
 
 // sunlight helper
 const sunlightHelper = new THREE.DirectionalLightHelper(sunlight);
-scene.add(sunlightHelper);
+scene.add(sunlight);
+// scene.add(sunlightHelper);
 
 // sunlight gui
 gui.add(sunlight, "intensity")
@@ -376,7 +378,6 @@ gui.add(sunlight, "intensity")
      .max(500)
      .step(1)
      .name("sunlight-intensity");
-scene.add(sunlight);
 
 // gui.add(sunlight.position, "x").min(-20).max(20).step(1).name("sunlight p x");
 // gui.add(sunlight.position, "y").min(-20).max(20).step(1).name("sunlight p y");
@@ -400,6 +401,23 @@ scene.add(sunlight);
 
 // gui.addColor(lightColorParams, "sunlightColor").onChange(() => {
 //      sunlight.color.set(lightColorParams.sunlightColor);
+// });
+
+// moon light
+const moonlightIntensity = 5;
+const moonlight = new THREE.DirectionalLight(
+     lightColorParams.moonlightColor,
+     moonlightIntensity
+);
+moonlight.position.set(0, -8, 0);
+
+const moonlightHelper = new THREE.DirectionalLightHelper(moonlight);
+scene.add(moonlight);
+// scene.add( moonlightHelper);
+
+// moonlight helpers
+// gui.addColor(lightColorParams, "moonlightColor").onChange(() => {
+//      moonlight.color.set(lightColorParams.moonlightColor);
 // });
 
 /**
@@ -459,21 +477,24 @@ const tick = () => {
      const elapsedTime = clock.getElapsedTime();
 
      // update light
-     const sunlightAngle = elapsedTime * 0.5;
+     const sunlightAngle = elapsedTime * 0.2;
      sunlight.position.x = Math.sin(sunlightAngle) * 7;
      sunlight.position.y = Math.cos(sunlightAngle) * 7;
 
-     // ? if the sun is below the horizon, decrease the intensity to 0
-     if (sunlight.position.y < 0 && sunlight.intensity >= 0) {
-          sunlight.intensity = sunlight.intensity - 0.5;
+     moonlight.position.x = -Math.sin(sunlightAngle) * 7;
+     moonlight.position.y = -Math.cos(sunlightAngle) * 7;
+
+     // ? change light intensity based on light position
+     function updateLightIntensity(light, intensity) {
+          if (light.position.y < -1 && light.intensity >= 0) {
+               light.intensity -= 0.5;
+          } else if (light.position.y > -1 && light.intensity <= intensity) {
+               light.intensity += 0.5;
+          }
      }
-     // ? if the sun is above the horizon, increase the intensity to "sunlightIntensity"
-     else if (
-          sunlight.position.y > 0 &&
-          sunlight.intensity <= sunlightIntensity
-     ) {
-          sunlight.intensity = sunlight.intensity + 0.5;
-     }
+
+     updateLightIntensity(sunlight, sunlightIntensity);
+     updateLightIntensity(moonlight, moonlightIntensity);
 
      // update controls
      controls.update();
