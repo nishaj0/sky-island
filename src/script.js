@@ -20,15 +20,15 @@ const scene = new THREE.Scene();
 // params
 const params = {
      roofColor: "#5c4242",
-     treeWoodColor: "brown",
+     treeWoodColor: "#964B00",
      treeLeafColor: "#32a862",
      stoneColor: "#3b3a39",
-     cloudColor: "gray",
-     sunColor: "yellow",
+     cloudColor: "#808080",
+     sunColor: "#ffff00",
      moonColor: "#3da1ff",
-     ambientLightColor: "white",
-     sunlightColor: 0xffecb3,
-     moonlightColor: 0x70a6e1,
+     ambientLightColor: "#ffffff",
+     sunlightColor: "#ffecb3",
+     moonlightColor: "#70a6e1",
      nightBgColor: "#45575c",
      morningBgColor: "#c2f3ff",
 };
@@ -204,9 +204,9 @@ door.position.x = 1.15;
 door.position.y = 0.6;
 door.position.z = -0.95;
 
-// gui.add(door.position, "x").min(-5).max(5).step(0.0001).name("door x");
-// gui.add(door.position, "y").min(-5).max(5).step(0.0001).name("door y");
-// gui.add(door.position, "z").min(-5).max(5).step(0.0001).name("door z");
+gui.add(door.position, "x").min(-5).max(5).step(0.0001).name("door x");
+gui.add(door.position, "y").min(-5).max(5).step(0.0001).name("door y");
+gui.add(door.position, "z").min(-5).max(5).step(0.0001).name("door z");
 
 door.rotation.y = Math.PI * 0.75;
 
@@ -219,28 +219,28 @@ house.add(door);
 // tree groups
 const Tree1 = new THREE.Group();
 Tree1.position.set(4, 0, 1.5);
-// gui.add(Tree1.position, "x").min(-5).max(5).step(0.01).name("tree1 x");
-// gui.add(Tree1.position, "z").min(-5).max(5).step(0.01).name("tree1 z");
+gui.add(Tree1.position, "x").min(-5).max(5).step(0.01).name("tree1 x");
+gui.add(Tree1.position, "z").min(-5).max(5).step(0.01).name("tree1 z");
 
 const Tree2 = new THREE.Group();
 Tree2.position.set(1.5, 0, -4.2);
-// gui.add(Tree2.position, "x").min(-5).max(5).step(0.01).name("tree2 x");
-// gui.add(Tree2.position, "z").min(-5).max(5).step(0.01).name("tree2 z");
+gui.add(Tree2.position, "x").min(-5).max(5).step(0.01).name("tree2 x");
+gui.add(Tree2.position, "z").min(-5).max(5).step(0.01).name("tree2 z");
 
 const Tree3 = new THREE.Group();
 Tree3.position.set(0.6, 0, 3.9);
-// gui.add(Tree3.position, "x").min(-5).max(5).step(0.01).name("tree3 x");
-// gui.add(Tree3.position, "z").min(-5).max(5).step(0.01).name("tree3 z");
+gui.add(Tree3.position, "x").min(-5).max(5).step(0.01).name("tree3 x");
+gui.add(Tree3.position, "z").min(-5).max(5).step(0.01).name("tree3 z");
 
 const Tree4 = new THREE.Group();
 Tree4.position.set(2.5, 0, 2.5);
-// gui.add(Tree4.position, "x").min(-5).max(5).step(0.01).name("tree4 x");
-// gui.add(Tree4.position, "z").min(-5).max(5).step(0.01).name("tree4 z");
+gui.add(Tree4.position, "x").min(-5).max(5).step(0.01).name("tree4 x");
+gui.add(Tree4.position, "z").min(-5).max(5).step(0.01).name("tree4 z");
 
 const Tree5 = new THREE.Group();
 Tree5.position.set(-1, 0, -3);
-// gui.add(Tree5.position, "x").min(-5).max(5).step(0.01).name("tree5 x");
-// gui.add(Tree5.position, "z").min(-5).max(5).step(0.01).name("tree5 z");
+gui.add(Tree5.position, "x").min(-5).max(5).step(0.01).name("tree5 x");
+gui.add(Tree5.position, "z").min(-5).max(5).step(0.01).name("tree5 z");
 
 scene.add(Tree1, Tree2, Tree3, Tree4, Tree5);
 
@@ -308,9 +308,9 @@ Tree5.add(tree5Leaf);
 const Stones = new THREE.Group();
 Stones.position.set(-3.4, 0, 0);
 Stones.rotation.y = 1.5;
-// gui.add(Stones.position, "x").min(-5).max(5).step(0.1).name("stones x");
-// gui.add(Stones.position, "z").min(-5).max(5).step(0.1).name("stones z");
-// gui.add(Stones.rotation, "y").min(-5).max(5).step(0.01).name("stones r y");
+gui.add(Stones.position, "x").min(-5).max(5).step(0.1).name("stones x");
+gui.add(Stones.position, "z").min(-5).max(5).step(0.1).name("stones z");
+gui.add(Stones.rotation, "y").min(-5).max(5).step(0.01).name("stones r y");
 
 scene.add(Stones);
 
@@ -389,8 +389,14 @@ scene.add(moon);
 
 // ambient light
 const ambientLight = new THREE.AmbientLight(params.ambientLightColor, 2);
-gui.add(ambientLight, "intensity").min(0).max(100).step(1).name("AL-intensity");
 scene.add(ambientLight);
+
+// ambientLight gui
+gui.add(ambientLight, "visible").name("ambientLight");
+gui.add(ambientLight, "intensity").min(0).max(100).step(1).name("AL-intensity");
+gui.addColor(params, "ambientLightColor").onChange(() => {
+     ambientLight.color.set(params.ambientLightColor);
+});
 
 // sunlight
 const sunlightIntensity = 10;
@@ -406,35 +412,36 @@ scene.add(sunlight);
 // scene.add(sunlightHelper);
 
 // sunlight gui
+gui.add(sunlight, "visible").name("sunlight");
 gui.add(sunlight, "intensity")
      .min(0)
      .max(500)
      .step(1)
      .name("sunlight-intensity");
 
-// gui.add(sunlight.position, "x").min(-20).max(20).step(1).name("sunlight p x");
-// gui.add(sunlight.position, "y").min(-20).max(20).step(1).name("sunlight p y");
-// gui.add(sunlight.position, "z").min(-20).max(20).step(1).name("sunlight p z");
+gui.add(sunlight.position, "x").min(-20).max(20).step(1).name("sunlight p x");
+gui.add(sunlight.position, "y").min(-20).max(20).step(1).name("sunlight p y");
+gui.add(sunlight.position, "z").min(-20).max(20).step(1).name("sunlight p z");
 
-// gui.add(sunlight.rotation, "x")
-//      .min(-Math.PI)
-//      .max(Math.PI)
-//      .step(0.001)
-//      .name("sunlight r x");
-// gui.add(sunlight.rotation, "y")
-//      .min(-Math.PI)
-//      .max(Math.PI)
-//      .step(0.001)
-//      .name("sunlight r y");
-// gui.add(sunlight.rotation, "z")
-//      .min(-Math.PI)
-//      .max(Math.PI)
-//      .step(0.001)
-//      .name("sunlight r z");
+gui.add(sunlight.rotation, "x")
+     .min(-Math.PI)
+     .max(Math.PI)
+     .step(0.001)
+     .name("sunlight r x");
+gui.add(sunlight.rotation, "y")
+     .min(-Math.PI)
+     .max(Math.PI)
+     .step(0.001)
+     .name("sunlight r y");
+gui.add(sunlight.rotation, "z")
+     .min(-Math.PI)
+     .max(Math.PI)
+     .step(0.001)
+     .name("sunlight r z");
 
-// gui.addColor(params, "sunlightColor").onChange(() => {
-//      sunlight.color.set(params.sunlightColor);
-// });
+gui.addColor(params, "sunlightColor").onChange(() => {
+     sunlight.color.set(params.sunlightColor);
+});
 
 // moon light
 const moonlightIntensity = 10;
@@ -449,9 +456,15 @@ scene.add(moonlight);
 // scene.add( moonlightHelper);
 
 // moonlight helpers
-// gui.addColor(params, "moonlightColor").onChange(() => {
-//      moonlight.color.set(params.moonlightColor);
-// });
+gui.add(moonlight, "visible").name("moonlight");
+gui.addColor(params, "moonlightColor").onChange(() => {
+     moonlight.color.set(params.moonlightColor);
+});
+gui.add(moonlight, "intensity")
+     .min(0)
+     .max(500)
+     .step(1)
+     .name("moonlight-intensity");
 
 /**
  * Camera
@@ -470,9 +483,9 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.x = 6;
 camera.position.y = 3;
 camera.position.z = -2;
-// gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
-// gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
-// gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
+gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
+gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
+gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
 
 // camera.lookAt(door)
 scene.add(camera);
