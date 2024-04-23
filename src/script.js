@@ -231,7 +231,7 @@ scene.add(Tree1, Tree2, Tree3, Tree4, Tree5);
 // wood
 const treeWoodMaterial = new THREE.MeshStandardMaterial({ color: "brown" });
 const bigTreeWoodGeo = new THREE.CylinderGeometry(0.22, 0.22, 1.1, 5);
-const midTreeWoodGeo = new THREE.CylinderGeometry(0.2, 0.2, .9, 5);
+const midTreeWoodGeo = new THREE.CylinderGeometry(0.2, 0.2, 0.9, 5);
 const smallTreeWoodGeo = new THREE.CylinderGeometry(0.18, 0.18, 0.8, 5);
 
 const tree1Wood = new THREE.Mesh(midTreeWoodGeo, treeWoodMaterial);
@@ -256,17 +256,17 @@ Tree5.add(tree5Wood);
 
 // leaf
 
-const treeLeafMaterial = new THREE.MeshBasicMaterial({ color: "#32a862" });
+const treeLeafMaterial = new THREE.MeshStandardMaterial({ color: "#32a862" });
 const bigTreeLeafGeo = new THREE.ConeGeometry(1, 2.2, 10);
 const midTreeLeafGeo = new THREE.ConeGeometry(0.8, 2, 10);
 const smallTreeLeafGeo = new THREE.ConeGeometry(0.6, 1.8, 10);
 
 const tree1Leaf = new THREE.Mesh(midTreeLeafGeo, treeLeafMaterial);
-tree1Leaf.position.y = 1 + .9; // half of leaf height + wood height
+tree1Leaf.position.y = 1 + 0.9; // half of leaf height + wood height
 Tree1.add(tree1Leaf);
 
 const tree2Leaf = new THREE.Mesh(midTreeLeafGeo, treeLeafMaterial);
-tree2Leaf.position.y = 1 + .9; // half of leaf height + wood height
+tree2Leaf.position.y = 1 + 0.9; // half of leaf height + wood height
 Tree2.add(tree2Leaf);
 
 const tree3Leaf = new THREE.Mesh(smallTreeLeafGeo, treeLeafMaterial);
@@ -349,20 +349,58 @@ for (let i = 0; i < 4; i++) {
  * Lights
  */
 
+const lightColorParams = {
+     sunlightColor: 0xffecb3,
+};
+
 // ambient light
 const ambientLight = new THREE.AmbientLight("white", 2);
 gui.add(ambientLight, "intensity").min(0).max(100).step(1).name("AL-intensity");
 scene.add(ambientLight);
 
-// directional Light
-const directionalLight = new THREE.DirectionalLight("white", 3);
-directionalLight.position.set(0, 5, 0);
-gui.add(directionalLight, "intensity")
+// sunlight
+const sunlightIntensity = 10;
+const sunlight = new THREE.DirectionalLight(
+     lightColorParams.sunlightColor,
+     sunlightIntensity
+);
+sunlight.position.set(0, 8, 0);
+
+// sunlight helper
+const sunlightHelper = new THREE.DirectionalLightHelper(sunlight);
+scene.add(sunlightHelper);
+
+// sunlight gui
+gui.add(sunlight, "intensity")
      .min(0)
-     .max(100)
+     .max(500)
      .step(1)
-     .name("DR-intensity");
-scene.add(directionalLight);
+     .name("sunlight-intensity");
+scene.add(sunlight);
+
+// gui.add(sunlight.position, "x").min(-20).max(20).step(1).name("sunlight p x");
+// gui.add(sunlight.position, "y").min(-20).max(20).step(1).name("sunlight p y");
+// gui.add(sunlight.position, "z").min(-20).max(20).step(1).name("sunlight p z");
+
+// gui.add(sunlight.rotation, "x")
+//      .min(-Math.PI)
+//      .max(Math.PI)
+//      .step(0.001)
+//      .name("sunlight r x");
+// gui.add(sunlight.rotation, "y")
+//      .min(-Math.PI)
+//      .max(Math.PI)
+//      .step(0.001)
+//      .name("sunlight r y");
+// gui.add(sunlight.rotation, "z")
+//      .min(-Math.PI)
+//      .max(Math.PI)
+//      .step(0.001)
+//      .name("sunlight r z");
+
+// gui.addColor(lightColorParams, "sunlightColor").onChange(() => {
+//      sunlight.color.set(lightColorParams.sunlightColor);
+// });
 
 /**
  * Camera
@@ -381,9 +419,9 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.x = 7;
 camera.position.y = 4;
 camera.position.z = -4;
-gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
-gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
-gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
+// gui.add(camera.position, "x").min(-20).max(20).step(1).name("camera x");
+// gui.add(camera.position, "y").min(-20).max(20).step(1).name("camera y");
+// gui.add(camera.position, "z").min(-20).max(20).step(1).name("camera z");
 
 // camera.lookAt(door)
 scene.add(camera);
@@ -419,6 +457,23 @@ window.addEventListener("resize", () => {
 const clock = new THREE.Clock();
 const tick = () => {
      const elapsedTime = clock.getElapsedTime();
+
+     // update light
+     const sunlightAngle = elapsedTime * 0.5;
+     sunlight.position.x = Math.sin(sunlightAngle) * 7;
+     sunlight.position.y = Math.cos(sunlightAngle) * 7;
+
+     // ? if the sun is below the horizon, decrease the intensity to 0
+     if (sunlight.position.y < 0 && sunlight.intensity >= 0) {
+          sunlight.intensity = sunlight.intensity - 0.5;
+     }
+     // ? if the sun is above the horizon, increase the intensity to "sunlightIntensity"
+     else if (
+          sunlight.position.y > 0 &&
+          sunlight.intensity <= sunlightIntensity
+     ) {
+          sunlight.intensity = sunlight.intensity + 0.5;
+     }
 
      // update controls
      controls.update();
